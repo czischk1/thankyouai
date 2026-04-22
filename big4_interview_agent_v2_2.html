@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Big 4 Interview Prep · Jeff Czischke</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --ink:       #0d1117;
+  --ink2:      #1e2733;
+  --ink3:      #2e3a4a;
+  --slate:     #4a5568;
+  --mist:      #8896a8;
+  --fog:       #c8d3de;
+  --frost:     #e8edf3;
+  --snow:      #f5f7fa;
+  --white:     #ffffff;
+
+  --navy:      #0b2545;
+  --navy2:     #134074;
+  --cobalt:    #1a5fa8;
+  --sky:       #5b9bd5;
+
+  --emerald:   #0f5132;
+  --green:     #1a7a4a;
+  --sage:      #4caf82;
+  --mint:      #d4edda;
+
+  --gold:      #b8860b;
+  --amber:     #d4a017;
+  --honey:     #fdf3c8;
+
+  --crimson:   #8b1a1a;
+  --rose:      #dc2626;
+  --blush:     #fee2e2;
+
+  --violet:    #5b21b6;
+  --lavender:  #ede9fe;
+
+  --r: 10px;
+  --r-sm: 6px;
+  --shadow-sm: 0 1px 4px rgba(11,37,69,0.08);
+  --shadow:    0 4px 16px rgba(11,37,69,0.12);
+  --shadow-lg: 0 12px 40px rgba(11,37,69,0.18);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; overflow: hidden; }
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--navy);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ═══ TOPBAR ══════════════════════════════════════════════════════ */
+.topbar {
+  flex-shrink: 0;
+  height: 52px;
+  background: var(--navy);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 16px;
+  z-index: 100;
+}
+.topbar-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.topbar-logo span { color: var(--sage); }
+.topbar-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.15); }
+.topbar-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+.topbar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.session-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  font-family: 'IBM Plex Mono', monospace;
+}
+.session-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--sage);
+  box-shadow: 0 0 6px var(--sage);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+}
+.score-topbar {
+  display: flex;
+  gap: 6px;
+}
+.score-chip {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+.score-chip.d { background: rgba(26,122,74,0.25); color: #7dd3a8; border: 1px solid rgba(26,122,74,0.3); }
+.score-chip.m { background: rgba(212,160,23,0.2); color: #fcd34d; border: 1px solid rgba(212,160,23,0.3); }
+.score-chip.p { background: rgba(220,38,38,0.2); color: #fca5a5; border: 1px solid rgba(220,38,38,0.3); }
+
+/* ═══ SHELL ═══════════════════════════════════════════════════════ */
+.shell {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 256px 1fr 288px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ═══ LEFT PANEL ══════════════════════════════════════════════════ */
+.left-panel {
+  background: rgba(0,0,0,0.25);
+  border-right: 1px solid rgba(255,255,255,0.06);
+  overflow-y: auto;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.panel-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  padding: 0 4px;
+  margin-bottom: 6px;
+}
+
+/* Mode buttons */
+.mode-list { display: flex; flex-direction: column; gap: 4px; }
+.mode-btn {
+  width: 100%;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  padding: 9px 10px;
+  cursor: pointer;
+  text-align: left;
+  color: rgba(255,255,255,0.55);
+  transition: all 0.18s;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+.mode-btn:hover {
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.85);
+  border-color: rgba(255,255,255,0.1);
+}
+.mode-btn.active {
+  background: rgba(26,122,74,0.2);
+  border-color: rgba(26,122,74,0.4);
+  color: white;
+}
+.mode-btn-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.mode-icon { font-size: 14px; }
+.mode-btn-sub {
+  font-size: 10.5px;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.35;
+  padding-left: 22px;
+}
+.mode-btn.active .mode-btn-sub { color: rgba(255,255,255,0.55); }
+
+/* Topic picker */
+.topic-grid { display: flex; flex-direction: column; gap: 2px; }
+.topic-btn {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 8px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 11.5px;
+  color: rgba(255,255,255,0.45);
+  font-family: 'IBM Plex Sans', sans-serif;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.topic-btn:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); }
+.topic-btn.active { color: #7dd3a8; background: rgba(26,122,74,0.12); }
+.topic-mark { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+/* History list */
+.history-list { display: flex; flex-direction: column; gap: 4px; }
+.history-item {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--r-sm);
+  padding: 7px 9px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.history-item:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.12); }
+.history-q {
+  font-size: 10.5px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.history-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+.h-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+.h-badge.Director { background: rgba(26,122,74,0.25); color: #86efac; }
+.h-badge.Manager  { background: rgba(212,160,23,0.2);  color: #fde68a; }
+.h-badge.Poor     { background: rgba(220,38,38,0.2);   color: #fca5a5; }
+.h-time { font-size: 9px; color: rgba(255,255,255,0.25); font-family: 'IBM Plex Mono', monospace; }
+
+/* ═══ CENTRE PANEL ════════════════════════════════════════════════ */
+.centre {
+  display: flex;
+  flex-direction: column;
+  background: var(--snow);
+  overflow: hidden;
+}
+
+/* Question strip */
+.q-strip {
+  flex-shrink: 0;
+  background: var(--white);
+  border-bottom: 2px solid var(--frost);
+  padding: 18px 24px 16px;
+}
+.q-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.q-type-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.q-type-badge.behavioral { background: #dbeafe; color: #1e40af; }
+.q-type-badge.technical  { background: var(--mint);   color: var(--emerald); }
+.q-type-badge.curveball  { background: var(--honey);  color: var(--gold); }
+.q-type-badge.strategic  { background: var(--lavender); color: var(--violet); }
+.q-difficulty {
+  font-size: 11px;
+  color: var(--mist);
+  font-family: 'IBM Plex Mono', monospace;
+}
+.q-number {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--fog);
+  font-family: 'IBM Plex Mono', monospace;
+}
+.q-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.38;
+  margin-bottom: 6px;
+}
+.q-context {
+  font-size: 12px;
+  color: var(--slate);
+  line-height: 1.5;
+  font-style: italic;
+  padding-left: 10px;
+  border-left: 2px solid var(--frost);
+}
+.q-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.q-action-btn {
+  background: var(--snow);
+  border: 1px solid var(--frost);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: var(--slate);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.q-action-btn:hover { background: var(--frost); color: var(--navy); }
+.q-action-btn.primary {
+  background: var(--navy);
+  color: white;
+  border-color: var(--navy);
+}
+.q-action-btn.primary:hover { background: var(--navy2); }
+
+/* Chat area */
+.chat-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.chat-scroll::-webkit-scrollbar { width: 4px; }
+.chat-scroll::-webkit-scrollbar-thumb { background: var(--fog); border-radius: 2px; }
+
+/* Messages */
+.msg-row { display: flex; }
+.msg-row.user { justify-content: flex-end; }
+.msg-row.assistant { justify-content: flex-start; }
+.msg-bubble {
+  max-width: 78%;
+  padding: 11px 15px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  line-height: 1.58;
+  animation: fadeUp 0.22s ease;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.msg-row.user .msg-bubble {
+  background: var(--navy);
+  color: white;
+  border-bottom-right-radius: 3px;
+}
+.msg-row.assistant .msg-bubble {
+  background: white;
+  color: var(--ink);
+  border: 1px solid var(--frost);
+  border-bottom-left-radius: 3px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Feedback card */
+.feedback-card {
+  background: white;
+  border: 1px solid var(--frost);
+  border-radius: var(--r);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  width: 100%;
+  animation: fadeUp 0.28s ease;
+}
+.fc-header {
+  padding: 13px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--frost);
+}
+.fc-header.Director { background: var(--mint); border-bottom-color: var(--sage); }
+.fc-header.Manager  { background: var(--honey); border-bottom-color: #f59e0b; }
+.fc-header.Poor     { background: var(--blush); border-bottom-color: #f87171; }
+.fc-header-left { display: flex; align-items: center; gap: 10px; }
+.fc-icon { font-size: 18px; }
+.fc-title { font-size: 13px; font-weight: 600; color: var(--ink); }
+.fc-level-pill {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+  color: white;
+}
+.fc-level-pill.Director { background: var(--green); }
+.fc-level-pill.Manager  { background: var(--amber); }
+.fc-level-pill.Poor     { background: var(--rose); }
+
+.fc-stars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 18px 0;
+}
+.fc-star { font-size: 15px; }
+.fc-star.on  { color: var(--amber); }
+.fc-star.off { color: var(--fog); }
+.fc-star-label { font-size: 11px; color: var(--mist); margin-left: 6px; font-family: 'IBM Plex Mono', monospace; }
+
+.fc-body { padding: 12px 18px 16px; display: flex; flex-direction: column; gap: 12px; }
+
+.fc-so-what {
+  background: var(--navy);
+  color: white;
+  border-radius: var(--r-sm);
+  padding: 11px 14px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.fc-so-what-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--sage);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.fc-section { }
+.fc-section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 5px;
+}
+.fc-section ul { padding-left: 16px; }
+.fc-section li {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink3);
+  margin-bottom: 3px;
+}
+.fc-section p { font-size: 12.5px; line-height: 1.5; color: var(--ink3); }
+
+.fc-director-close {
+  background: #f0fdf4;
+  border-left: 3px solid var(--green);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  padding: 10px 13px;
+  font-size: 12.5px;
+  font-style: italic;
+  color: var(--emerald);
+  line-height: 1.5;
+}
+.fc-followup {
+  background: #eff6ff;
+  border-left: 3px solid var(--cobalt);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  padding: 10px 13px;
+  font-size: 12.5px;
+  color: var(--navy2);
+  line-height: 1.5;
+  font-weight: 500;
+}
+.fc-followup-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--cobalt);
+  display: block;
+  margin-bottom: 3px;
+  font-weight: 400;
+}
+.fc-answer-followup {
+  margin-top: 8px;
+  background: var(--navy);
+  color: white;
+  border: none;
+  border-radius: var(--r-sm);
+  padding: 8px 14px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 500;
+  width: 100%;
+  transition: background 0.15s;
+}
+.fc-answer-followup:hover { background: var(--navy2); }
+
+/* Typing indicator */
+.typing-row { display: flex; justify-content: flex-start; }
+.typing-bubble {
+  background: white;
+  border: 1px solid var(--frost);
+  border-radius: 12px;
+  border-bottom-left-radius: 3px;
+  padding: 12px 16px;
+  display: flex;
+  gap: 5px;
+  box-shadow: var(--shadow-sm);
+}
+.typing-dot {
+  width: 7px; height: 7px;
+  background: var(--fog);
+  border-radius: 50%;
+  animation: typingBounce 1.2s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: translateY(0); background: var(--fog); }
+  40% { transform: translateY(-5px); background: var(--mist); }
+}
+
+/* Welcome screen */
+.welcome-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 40px;
+  text-align: center;
+  gap: 16px;
+}
+.welcome-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  background: var(--mint);
+  color: var(--emerald);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+.welcome-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.25;
+}
+.welcome-sub {
+  font-size: 13.5px;
+  color: var(--slate);
+  max-width: 420px;
+  line-height: 1.65;
+}
+.welcome-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  justify-content: center;
+  max-width: 460px;
+}
+.welcome-tag {
+  background: var(--snow);
+  border: 1px solid var(--frost);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 11.5px;
+  color: var(--slate);
+}
+.welcome-start {
+  background: var(--navy);
+  color: white;
+  border: none;
+  border-radius: var(--r);
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  transition: background 0.15s;
+  margin-top: 4px;
+}
+.welcome-start:hover { background: var(--navy2); }
+
+/* Input area */
+.input-zone {
+  flex-shrink: 0;
+  background: white;
+  border-top: 2px solid var(--frost);
+  padding: 12px 24px 14px;
+}
+.input-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+.input-wrap { flex: 1; }
+.answer-input {
+  width: 100%;
+  border: 1.5px solid var(--frost);
+  border-radius: var(--r);
+  padding: 10px 14px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 13.5px;
+  color: var(--ink);
+  resize: none;
+  min-height: 48px;
+  max-height: 160px;
+  line-height: 1.5;
+  outline: none;
+  transition: border-color 0.15s;
+  overflow-y: auto;
+}
+.answer-input:focus { border-color: var(--cobalt); }
+.answer-input::placeholder { color: var(--fog); }
+.btn-submit {
+  background: var(--navy);
+  color: white;
+  border: none;
+  border-radius: var(--r);
+  padding: 11px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.btn-submit:hover:not(:disabled) { background: var(--navy2); }
+.btn-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-new {
+  background: var(--snow);
+  color: var(--navy);
+  border: 1.5px solid var(--frost);
+  border-radius: var(--r);
+  padding: 11px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.btn-new:hover { background: var(--frost); border-color: var(--fog); }
+.hints-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.hint-pill {
+  background: var(--snow);
+  border: 1px solid var(--frost);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: var(--slate);
+  cursor: pointer;
+  transition: all 0.12s;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+.hint-pill:hover { background: var(--frost); color: var(--navy); border-color: var(--fog); }
+
+/* ═══ RIGHT PANEL — COACH ═════════════════════════════════════════ */
+.right-panel {
+  background: var(--white);
+  border-left: 1px solid var(--frost);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.right-panel::-webkit-scrollbar { width: 4px; }
+.right-panel::-webkit-scrollbar-thumb { background: var(--frost); border-radius: 2px; }
+
+.coach-header {
+  flex-shrink: 0;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--frost);
+}
+.coach-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 2px;
+}
+.coach-sub { font-size: 11px; color: var(--mist); }
+
+.coach-body { flex: 1; padding: 14px 16px; display: flex; flex-direction: column; gap: 14px; }
+
+/* Score dashboard */
+.score-dashboard {
+  background: var(--navy);
+  border-radius: var(--r);
+  padding: 14px;
+  color: white;
+}
+.score-db-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 10px;
+}
+.score-db-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.score-db-cell { text-align: center; }
+.score-db-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+.score-db-num.d { color: #86efac; }
+.score-db-num.m { color: #fde68a; }
+.score-db-num.p { color: #fca5a5; }
+.score-db-num.rate { color: white; }
+.score-db-label { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 3px; font-family: 'IBM Plex Mono', monospace; }
+.score-bar-wrap { margin-top: 12px; }
+.score-bar-label { font-size: 10px; color: rgba(255,255,255,0.5); margin-bottom: 4px; font-family: 'IBM Plex Mono', monospace; }
+.score-bar-track { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
+.score-bar-fill { height: 100%; background: var(--sage); border-radius: 3px; transition: width 0.5s ease; }
+
+/* STAR+L rubric */
+.rubric-card {
+  border: 1px solid var(--frost);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.rubric-header {
+  background: var(--snow);
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+  border-bottom: 1px solid var(--frost);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rubric-body { padding: 0; }
+.rubric-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--frost);
+}
+.rubric-row:last-child { border-bottom: none; }
+.rubric-letter {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: white;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.rubric-text { }
+.rubric-text-title { font-size: 12px; font-weight: 600; color: var(--ink); }
+.rubric-text-desc { font-size: 11px; color: var(--slate); line-height: 1.4; margin-top: 1px; }
+
+/* Director vs Manager comparison */
+.comparison-card {
+  border: 1px solid var(--frost);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.comparison-header {
+  background: var(--snow);
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+  border-bottom: 1px solid var(--frost);
+}
+.comparison-body { padding: 10px 14px; display: flex; flex-direction: column; gap: 8px; }
+.comparison-row { }
+.comparison-scenario { font-size: 11px; color: var(--mist); font-style: italic; margin-bottom: 4px; }
+.comparison-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.compare-col {
+  background: var(--snow);
+  border-radius: var(--r-sm);
+  padding: 7px 9px;
+  border-top: 2px solid;
+}
+.compare-col.mgr { border-color: var(--amber); }
+.compare-col.dir { border-color: var(--green); }
+.compare-col-label { font-size: 9px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.1em; margin-bottom: 3px; }
+.compare-col.mgr .compare-col-label { color: var(--amber); }
+.compare-col.dir .compare-col-label { color: var(--green); }
+.compare-col p { font-size: 11px; color: var(--ink3); line-height: 1.4; }
+
+/* Cheat codes */
+.cheat-card {
+  border: 1px solid var(--frost);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.cheat-header {
+  background: var(--navy);
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  display: flex; align-items: center; gap: 8px;
+}
+.cheat-body { padding: 10px 14px; display: flex; flex-direction: column; gap: 6px; }
+.cheat-item {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.cheat-bullet {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--cobalt);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+.cheat-item p { font-size: 11.5px; color: var(--ink3); line-height: 1.45; }
+
+/* Wingspire prep box */
+.wingspire-card {
+  border: 2px solid var(--cobalt);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.wingspire-header {
+  background: var(--cobalt);
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  display: flex; align-items: center; gap: 7px;
+}
+.wingspire-body { padding: 10px 14px; display: flex; flex-direction: column; gap: 5px; }
+.wingspire-item { font-size: 11.5px; color: var(--navy2); line-height: 1.45; display: flex; gap: 7px; align-items: flex-start; }
+.wingspire-arrow { color: var(--cobalt); font-weight: 600; flex-shrink: 0; }
+
+/* ═══ API KEY MODAL ════════════════════════════════════════════════ */
+.apikey-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(11,37,69,0.92);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.apikey-modal {
+  background: white;
+  border-radius: 16px;
+  padding: 36px 40px;
+  max-width: 460px;
+  width: 100%;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+  text-align: center;
+}
+.apikey-icon { font-size: 36px; margin-bottom: 12px; }
+.apikey-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--navy); margin-bottom: 8px;
+}
+.apikey-sub {
+  font-size: 13px; color: var(--slate);
+  line-height: 1.6; margin-bottom: 20px;
+}
+.apikey-sub a { color: var(--cobalt); text-decoration: none; }
+.apikey-sub a:hover { text-decoration: underline; }
+.apikey-input-wrap { position: relative; margin-bottom: 12px; }
+.apikey-input {
+  width: 100%;
+  border: 1.5px solid var(--frost);
+  border-radius: 10px;
+  padding: 12px 44px 12px 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s;
+  letter-spacing: 0.03em;
+}
+.apikey-input:focus { border-color: var(--cobalt); }
+.apikey-toggle {
+  position: absolute; right: 12px; top: 50%;
+  transform: translateY(-50%);
+  background: none; border: none;
+  cursor: pointer; font-size: 16px; color: var(--mist);
+  padding: 2px;
+}
+.apikey-btn {
+  width: 100%;
+  background: var(--navy); color: white;
+  border: none; border-radius: 10px;
+  padding: 13px; font-size: 14px; font-weight: 500;
+  cursor: pointer; font-family: 'IBM Plex Sans', sans-serif;
+  transition: background 0.15s; margin-bottom: 10px;
+}
+.apikey-btn:hover { background: var(--navy2); }
+.apikey-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.apikey-note {
+  font-size: 11px; color: var(--mist); line-height: 1.5;
+}
+.apikey-error {
+  font-size: 12px; color: var(--rose);
+  margin-bottom: 10px; display: none;
+}
+</style>
+</head>
+<body>
+
+<!-- API KEY MODAL -->
+<div class="apikey-overlay" id="apikeyOverlay">
+  <div class="apikey-modal">
+    <div class="apikey-icon">🔑</div>
+    <div class="apikey-title">Enter Your API Key</div>
+    <div class="apikey-sub">
+      This agent calls the Anthropic API to evaluate your answers in real time.
+      Your key is stored only in memory for this session — never saved or transmitted elsewhere.<br><br>
+      Get a key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>
+    </div>
+    <div class="apikey-error" id="apikeyError">Invalid key — please check and try again.</div>
+    <div class="apikey-input-wrap">
+      <input class="apikey-input" id="apikeyInput" type="password"
+        placeholder="sk-ant-api03-..."
+        oninput="document.getElementById('apikeySubmit').disabled = this.value.trim().length < 20"
+        onkeydown="if(event.key==='Enter') submitApiKey()" />
+      <button class="apikey-toggle" onclick="toggleKeyVis()" title="Show/hide">👁</button>
+    </div>
+    <button class="apikey-btn" id="apikeySubmit" onclick="submitApiKey()" disabled>
+      Start Session →
+    </button>
+    <div class="apikey-note">Key used only for this browser session · Not stored · Cleared on refresh</div>
+  </div>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-logo">Big<span>4</span> Prep</div>
+  <div class="topbar-sep"></div>
+  <div class="topbar-tag">Jeff Czischke · Director AI &amp; IA</div>
+  <div class="topbar-right">
+    <div class="score-topbar">
+      <span class="score-chip d" id="tb-d">D: 0</span>
+      <span class="score-chip m" id="tb-m">M: 0</span>
+      <span class="score-chip p" id="tb-p">P: 0</span>
+    </div>
+    <div class="session-pill">
+      <span class="session-dot"></span>
+      <span id="tb-session">Session Active</span>
+    </div>
+  </div>
+</div>
+
+<!-- SHELL -->
+<div class="shell">
+
+  <!-- LEFT PANEL -->
+  <aside class="left-panel">
+    <div>
+      <div class="panel-label">Interview Mode</div>
+      <div class="mode-list">
+        <button class="mode-btn active" onclick="setMode('behavioral',this)">
+          <div class="mode-btn-name"><span class="mode-icon">🎯</span> Behavioral</div>
+          <div class="mode-btn-sub">STAR+L · Leadership proof · CoE stories</div>
+        </button>
+        <button class="mode-btn" onclick="setMode('technical',this)">
+          <div class="mode-btn-name"><span class="mode-icon">🏗️</span> Technical</div>
+          <div class="mode-btn-sub">LLM architecture · RAG · Governance · Stack</div>
+        </button>
+        <button class="mode-btn" onclick="setMode('curveball',this)">
+          <div class="mode-btn-name"><span class="mode-icon">⚡</span> Curveball™</div>
+          <div class="mode-btn-sub">Crisis · Budget cuts · CISO blocks · Shadow IT</div>
+        </button>
+        <button class="mode-btn" onclick="setMode('strategic',this)">
+          <div class="mode-btn-name"><span class="mode-icon">📊</span> Strategic / CFO</div>
+          <div class="mode-btn-sub">Build vs. buy · EBITDA · 30-60-90 · FinTech</div>
+        </button>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel-label">Topics</div>
+      <div class="topic-grid" id="topicGrid"></div>
+    </div>
+
+    <div>
+      <div class="panel-label">Session History</div>
+      <div class="history-list" id="historyList">
+        <div style="font-size:11px;color:rgba(255,255,255,0.25);padding:4px;">No questions answered yet.</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CENTRE -->
+  <main class="centre">
+    <!-- Question strip -->
+    <div class="q-strip">
+      <div class="q-meta-row">
+        <span class="q-type-badge behavioral" id="qBadge">BEHAVIORAL</span>
+        <span class="q-difficulty" id="qDiff">Partner-Level · STAR+L Required</span>
+        <span class="q-number" id="qNum">#—</span>
+      </div>
+      <div class="q-text" id="qText">Pick a mode and hit "New Question" — or choose a topic from the left panel.</div>
+      <div class="q-context" id="qCtx">Your answers are evaluated against Director/VP standards. The "So What?" filter runs on every response.</div>
+      <div class="q-actions">
+        <button class="q-action-btn primary" onclick="newQuestion()">↻ New Question</button>
+        <button class="q-action-btn" onclick="skipQuestion()">Skip →</button>
+        <button class="q-action-btn" onclick="showFrameworkHint()">💡 Framework Hint</button>
+        <button class="q-action-btn" id="followUpBtn" style="display:none" onclick="loadFollowUp()">↳ Answer Follow-Up</button>
+      </div>
+    </div>
+
+    <!-- Chat -->
+    <div class="chat-scroll" id="chatScroll">
+      <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-badge">Big 4 · Partner-Level Standards</div>
+        <div class="welcome-title">Ready to get honest feedback?</div>
+        <div class="welcome-sub">This agent runs rigorous interview simulations grounded in your actual experience — 490+ deployments, Wond-E, the CoE, Northern Trust. Every answer gets a Director / Manager / Poor rating with a "So What?" verdict and a follow-up curveball.</div>
+        <div class="welcome-tags">
+          <span class="welcome-tag">STAR+L Scoring</span>
+          <span class="welcome-tag">So What? Filter</span>
+          <span class="welcome-tag">MECE Feedback</span>
+          <span class="welcome-tag">Follow-Up Curvebalks</span>
+          <span class="welcome-tag">Director Close Templates</span>
+          <span class="welcome-tag">Wingspire-Specific Prep</span>
+        </div>
+        <button class="welcome-start" onclick="newQuestion()">Start Prep Session →</button>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div class="input-zone">
+      <div class="input-row">
+        <div class="input-wrap">
+          <textarea class="answer-input" id="answerInput"
+            placeholder="Answer the question above — use STAR+L structure, lead with outcomes, be specific about metrics and systems…"
+            onkeydown="handleKey(event)" oninput="handleInputChange(this)"></textarea>
+        </div>
+        <button class="btn-submit" id="submitBtn" onclick="submitAnswer()" disabled>Submit ↵</button>
+        <button class="btn-new" onclick="newQuestion()">New Q</button>
+      </div>
+      <div class="hints-row" id="hintsRow"></div>
+    </div>
+  </main>
+
+  <!-- RIGHT PANEL -->
+  <aside class="right-panel">
+    <div class="coach-header">
+      <div class="coach-title">Partner Coach</div>
+      <div class="coach-sub">Real-time scoring · STAR+L rubric · Director standards</div>
+    </div>
+    <div class="coach-body">
+
+      <!-- Score dashboard -->
+      <div class="score-dashboard">
+        <div class="score-db-title">SESSION PERFORMANCE</div>
+        <div class="score-db-grid">
+          <div class="score-db-cell">
+            <div class="score-db-num d" id="scoreD">0</div>
+            <div class="score-db-label">Director ✓</div>
+          </div>
+          <div class="score-db-cell">
+            <div class="score-db-num m" id="scoreM">0</div>
+            <div class="score-db-label">Manager ⚠</div>
+          </div>
+          <div class="score-db-cell">
+            <div class="score-db-num p" id="scoreP">0</div>
+            <div class="score-db-label">Poor ✗</div>
+          </div>
+          <div class="score-db-cell">
+            <div class="score-db-num rate" id="scoreRate">—</div>
+            <div class="score-db-label">Director %</div>
+          </div>
+        </div>
+        <div class="score-bar-wrap">
+          <div class="score-bar-label">DIRECTOR RATE</div>
+          <div class="score-bar-track">
+            <div class="score-bar-fill" id="scoreBarFill" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAR+L Rubric -->
+      <div class="rubric-card">
+        <div class="rubric-header">📋 STAR+L Rubric</div>
+        <div class="rubric-body">
+          <div class="rubric-row">
+            <div class="rubric-letter">S</div>
+            <div class="rubric-text">
+              <div class="rubric-text-title">Situation</div>
+              <div class="rubric-text-desc">Specific context, scale, and stakes. Name the company, function, and business problem.</div>
+            </div>
+          </div>
+          <div class="rubric-row">
+            <div class="rubric-letter">T</div>
+            <div class="rubric-text">
+              <div class="rubric-text-title">Task</div>
+              <div class="rubric-text-desc">Your specific accountability. What were you personally responsible for delivering?</div>
+            </div>
+          </div>
+          <div class="rubric-row">
+            <div class="rubric-letter">A</div>
+            <div class="rubric-text">
+              <div class="rubric-text-title">Action</div>
+              <div class="rubric-text-desc">What specifically did YOU do? Use "I built," "I decided," not "we deployed."</div>
+            </div>
+          </div>
+          <div class="rubric-row">
+            <div class="rubric-letter">R</div>
+            <div class="rubric-text">
+              <div class="rubric-text-title">Result</div>
+              <div class="rubric-text-desc">Quantified outcome. Hours, FTEs, EBITDA, error rate reduction. Not vague success language.</div>
+            </div>
+          </div>
+          <div class="rubric-row">
+            <div class="rubric-letter">L</div>
+            <div class="rubric-text">
+              <div class="rubric-text-title">Learning + Leadership</div>
+              <div class="rubric-text-desc">What changed in how you build? What did the team or system learn? Director-level reflection.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Director vs Manager -->
+      <div class="comparison-card">
+        <div class="comparison-header">Director vs. Manager Signals</div>
+        <div class="comparison-body">
+          <div class="comparison-row">
+            <div class="comparison-scenario">On impact language:</div>
+            <div class="comparison-cols">
+              <div class="compare-col mgr">
+                <div class="compare-col-label">MANAGER</div>
+                <p>"We deployed 50 bots and saved a lot of time."</p>
+              </div>
+              <div class="compare-col dir">
+                <div class="compare-col-label">DIRECTOR</div>
+                <p>"325K hours recaptured — equivalent to 156 FTEs — without a single layoff conversation."</p>
+              </div>
+            </div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-scenario">On governance:</div>
+            <div class="comparison-cols">
+              <div class="compare-col mgr">
+                <div class="compare-col-label">MANAGER</div>
+                <p>"We had approval processes for new bots."</p>
+              </div>
+              <div class="compare-col dir">
+                <div class="compare-col-label">DIRECTOR</div>
+                <p>"I chaired a monthly governance board with CIO, CFO, and BU Presidents — every exception escalated to me."</p>
+              </div>
+            </div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-scenario">On failure:</div>
+            <div class="comparison-cols">
+              <div class="compare-col mgr">
+                <div class="compare-col-label">MANAGER</div>
+                <p>"It was a challenging situation but we recovered."</p>
+              </div>
+              <div class="compare-col dir">
+                <div class="compare-col-label">DIRECTOR</div>
+                <p>"The bot failed. I owned it publicly, ran the post-mortem myself, and rebuilt the exception-handling layer. It hasn't failed since."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wingspire Prep -->
+      <div class="wingspire-card">
+        <div class="wingspire-header">🎯 Wingspire Round 2 Priority</div>
+        <div class="wingspire-body">
+          <div class="wingspire-item"><span class="wingspire-arrow">›</span><span>Build vs. buy vs. orchestrate — CFO will probe the economics</span></div>
+          <div class="wingspire-item"><span class="wingspire-arrow">›</span><span>Defend ~$4M value — "I don't see it in the P&amp;L"</span></div>
+          <div class="wingspire-item"><span class="wingspire-arrow">›</span><span>FinTech governance gaps — model risk, fair lending, explainability</span></div>
+          <div class="wingspire-item"><span class="wingspire-arrow">›</span><span>30-day plan — what you do AND what you don't do first</span></div>
+          <div class="wingspire-item"><span class="wingspire-arrow">›</span><span>Explicit interest close — confirm next steps before leaving</span></div>
+        </div>
+      </div>
+
+      <!-- Cheat codes -->
+      <div class="cheat-card">
+        <div class="cheat-header">⚡ Power Phrases</div>
+        <div class="cheat-body">
+          <div class="cheat-item"><span class="cheat-bullet"></span><p>"I build the platform that governs at scale — not just the bots that run on it."</p></div>
+          <div class="cheat-item"><span class="cheat-bullet"></span><p>"Every use case scored T×F×E÷C before it touched my backlog."</p></div>
+          <div class="cheat-item"><span class="cheat-bullet"></span><p>"Simplify first, then automate — we never automated a broken process."</p></div>
+          <div class="cheat-item"><span class="cheat-bullet"></span><p>"The portfolio is the product — no single bot changed anything."</p></div>
+          <div class="cheat-item"><span class="cheat-bullet"></span><p>"We started where the pain was measurable. Finance and Supply Chain first."</p></div>
+          <div class="cheat-item"><span class="cheat-bullet"></span><p>"I acknowledge the Azure gap — and here's my 60-day ramp plan."</p></div>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════
+// DATA — Question Bank (40+ questions across 4 modes)
+// Grounded in Jeff's actual background
+// ════════════════════════════════════════════════════════
+const QB = {
+  behavioral: [
+    {
+      topic: "CoE Founding",
+      diff: "Director-Level · STAR+L Required",
+      text: "Walk me through how you built The Wonderful Company's AI CoE from zero. What was the single hardest architectural decision you made in year one, and what would you change?",
+      ctx: "We want CoE charter design, governance choices, and a specific architectural decision — not a timeline recitation. The 'L' in STAR+L matters: what did building it teach you about what NOT to do?"
+    },
+    {
+      topic: "CoE Founding",
+      diff: "Director-Level · Build Sequencing",
+      text: "You started with one bot running a daily report and ended at 490+. What was the sequencing logic — why Finance and Supply Chain first — and what would have gone wrong if you'd started in HR?",
+      ctx: "Tests strategic sequencing thinking. We want: measurability as selection criteria, replication theory (build once, deploy many), and self-awareness about failure modes."
+    },
+    {
+      topic: "Stakeholder Influence",
+      diff: "VP-Level · CFO Alignment",
+      text: "Tell me about a time you had to win over a CFO or C-level executive who was skeptical of AI investment. How did you frame the business case, and how did you handle pushback on the numbers?",
+      ctx: "This tests executive-level financial storytelling. We want EBITDA framing, not FTE-savings theater. And we want to see what you do when the CFO says 'I don't see that in the P&L.'"
+    },
+    {
+      topic: "Stakeholder Influence",
+      diff: "Director-Level · Executive Presence",
+      text: "Describe a time when your governance board or executive sponsor nearly pulled the plug on the entire program. What happened, and how did you turn it around?",
+      ctx: "Tests resilience and executive credibility under pressure. We want: specific threat, your personal accountability, and concrete action — not vague 'we communicated better.'"
+    },
+    {
+      topic: "Failure & Recovery",
+      diff: "Director-Level · Accountability",
+      text: "Tell me about a significant automation failure on your watch — a bot that broke something important. What was your role, what went wrong architecturally, and what changed in your governance framework as a result?",
+      ctx: "The 'L' is what we're evaluating most. We're not testing whether you've failed — we assume you have. We're testing whether failure made your system smarter."
+    },
+    {
+      topic: "Failure & Recovery",
+      diff: "VP-Level · Post-Mortem Culture",
+      text: "You've run 490+ production automations. Statistically, some failed. Walk me through your incident response protocol — from detection to root cause to governance change — using a real example.",
+      ctx: "Tests operational maturity and systematic thinking. We want a structured process, not an anecdote. If you built a post-mortem framework, describe it specifically."
+    },
+    {
+      topic: "Change Management",
+      diff: "Director-Level · Adoption at Scale",
+      text: "Give me a specific example of driving AI adoption across a business function where the leader was actively resistant — not just skeptical, but blocking you. What did you do?",
+      ctx: "We want structured change management — champion network, executive air cover, measured adoption milestones — not 'I explained the benefits until they understood.'"
+    },
+    {
+      topic: "Change Management",
+      diff: "Director-Level · Automation Anxiety",
+      text: "When employees heard 'automation,' many feared job loss. How did you address automation anxiety at Wonderful Company — and what's your framework for doing this at a new organization?",
+      ctx: "This is the adoption challenge that sinks most programs. We want: how you framed it (capacity liberation vs. headcount reduction), specific communication architecture, and measurable results."
+    },
+    {
+      topic: "Team Building",
+      diff: "VP-Level · Practice Building",
+      text: "You built a 30-person AI practice from scratch. Walk me through your hiring philosophy — what did you look for, how did you build the team's capabilities, and what hard personnel decision did you make?",
+      ctx: "Tests people leadership maturity. We want a talent philosophy, a capability-building model, and a specific hard decision (performance management, restructuring, letting someone go)."
+    },
+    {
+      topic: "Team Building",
+      diff: "Director-Level · Mentorship & Growth",
+      text: "Tell me about someone you developed on your team — from where they started to where they are now. What did you specifically do as a leader to enable their growth?",
+      ctx: "Tests your mentorship philosophy and execution. We want specifics: what gaps you saw, what you did about them, and what concrete outcome resulted for that person."
+    },
+    {
+      topic: "Strategic Prioritization",
+      diff: "VP-Level · Portfolio Management",
+      text: "You had 17 functions competing for limited automation resources. Walk me through your T×F×E÷C scoring model and describe a time you had to tell a VP that their project wasn't making the cut — and what happened next.",
+      ctx: "We want the full scoring model logic, a real prioritization conflict, and how you communicated a 'no' to a senior stakeholder without burning the relationship."
+    },
+    {
+      topic: "Strategic Prioritization",
+      diff: "Director-Level · Build vs. Intelligence",
+      text: "You described a deliberate sequencing from RPA to intelligence layers to agentic AI. What signals told you it was time to move from Phase 2 to Phase 3? What would have happened if you'd rushed it?",
+      ctx: "Tests strategic patience and platform thinking. We want: specific signals (stability metrics, replication success, trust threshold), and an honest account of what the failure mode of rushing would have been."
+    },
+  ],
+
+  technical: [
+    {
+      topic: "LLM Architecture",
+      diff: "Principal-Level · Dual-LLM Design",
+      text: "You ran both Claude (Anthropic) and GPT-4o in Wond-E simultaneously. Walk me through the routing logic — what went to Claude, what went to GPT-4o, and how you made that architectural decision.",
+      ctx: "This is a real technical deep-dive. We want: reasoning vs. speed tradeoffs, prompt engineering differences between models, how you maintained consistency across two providers, and your fallback strategy."
+    },
+    {
+      topic: "LLM Architecture",
+      diff: "Principal-Level · Prompt Engineering",
+      text: "Describe how you implemented department-specific prompt frameworks in Wond-E. How did you prevent prompt injection, and how did you ensure HR queries didn't leak to non-HR users?",
+      ctx: "Tests production LLM security thinking. We want: role-based access controls at the prompt layer, PII masking architecture, injection defense, and how you tested for leakage."
+    },
+    {
+      topic: "RAG Design",
+      diff: "Principal-Level · Retrieval Architecture",
+      text: "Walk me through your RAG implementation for Wond-E — chunking strategy, embedding model choice, semantic search thresholds, and how you handled document freshness and stale knowledge.",
+      ctx: "We're testing real RAG experience vs. surface-level familiarity. Where did retrieval fail you? How did you tune the relevance threshold? What was your reindexing cadence?"
+    },
+    {
+      topic: "RAG Design",
+      diff: "Director-Level · Hallucination Mitigation",
+      text: "Wond-E answered HR and compliance questions. How did you prevent hallucination on policy queries where a wrong answer has legal or employment consequences?",
+      ctx: "This is where most LLM copilots fail in enterprise. We want: RAG grounding strategy, confidence thresholds, human-in-the-loop escalation triggers, and how you validated answer accuracy."
+    },
+    {
+      topic: "RPA Governance",
+      diff: "Director-Level · Bot Lifecycle",
+      text: "At 490+ production bots, describe your lifecycle management framework — from intake scoring through deployment, monitoring, exception handling, and decommissioning.",
+      ctx: "At scale, governance IS the product. We want: RACI clarity, SLA monitoring approach, exception routing, and specifically how you handled orphaned bots when their business owners left."
+    },
+    {
+      topic: "RPA Governance",
+      diff: "Principal-Level · Exception Handling",
+      text: "Walk me through how a bot exception was handled in your CoE — from the moment it fired to resolution. Specifically: what triggered escalation to human review, and what prevented re-occurrence?",
+      ctx: "Tests operational rigor. We want a specific exception workflow, not a generalized description. How many exceptions per day/week? What was your SLA for resolution?"
+    },
+    {
+      topic: "Platform Selection",
+      diff: "Director-Level · TCO Thinking",
+      text: "You evaluated MoveWorks, UiPath, Power Platform, and LLM APIs in your stack. Walk me through how you make a platform selection recommendation — what questions do you ask before touching a demo?",
+      ctx: "Tests platform-agnostic architecture thinking. We want: TCO analysis, integration complexity, talent availability, vendor lock-in risk, and how you structure the business case."
+    },
+    {
+      topic: "Platform Selection",
+      diff: "VP-Level · Vendor Lock-In Risk",
+      text: "MoveWorks was a key platform for Wond-E. How did you architect around vendor dependency risk — what would it cost to migrate if MoveWorks raised prices 3x or went end-of-life?",
+      ctx: "Tests strategic vendor management thinking. We want: abstraction layer design, data portability, migration cost modeling, and your honest assessment of how locked-in you were."
+    },
+    {
+      topic: "Data Security",
+      diff: "Principal-Level · Enterprise LLM Security",
+      text: "Explain your full security architecture for Wond-E — how you prevented PII from entering the LLM context, how you handled data residency requirements, and how you achieved SOC-2 compliance (or equivalent) for the AI layer.",
+      ctx: "Security is where most enterprise LLM projects stall. We want specific controls — data masking location, audit trail design, role-based access architecture — not 'we followed best practices.'"
+    },
+    {
+      topic: "Scoring Frameworks",
+      diff: "Director-Level · T×F×E÷C Deep Dive",
+      text: "Walk me through your T×F×E÷C scoring model in detail. How did you calibrate the 1-5 scales, how did you prevent gaming by business units, and where did the model break down?",
+      ctx: "Tests the depth of your prioritization methodology. We want: scale calibration logic, governance controls against gaming, and honest reflection on where the model produced counterintuitive results."
+    },
+  ],
+
+  curveball: [
+    {
+      topic: "Bot Failure Crisis",
+      diff: "CRITICAL · Crisis Governance",
+      text: "Monday morning. One of your production bots processed $2.3M in erroneous vendor payments over the weekend due to an upstream data format change nobody caught. The CFO is calling in 20 minutes. Walk me through your next 72 hours.",
+      ctx: "Crisis governance test. We want: immediate containment, communication protocol (who gets told what, in what order), root cause approach, and the governance change that results. 'We fixed it' is not a Director answer."
+    },
+    {
+      topic: "Bot Failure Crisis",
+      diff: "CRITICAL · Reputational Risk",
+      text: "An automation you deployed in HR sent incorrect termination notices to 12 employees before it was caught. Two had already called their lawyers. What do you do, in what order, and what does this tell you about your governance model?",
+      ctx: "This is a career-defining crisis scenario. We want: speed of containment, human escalation protocol, legal coordination, employee communication — and an honest governance post-mortem."
+    },
+    {
+      topic: "CISO Conflict",
+      diff: "CRITICAL · Security vs. Innovation",
+      text: "Your CISO just issued a blanket block on all external LLM API calls — Claude, OpenAI, everything — citing new data classification policy. You have 5 active Wond-E deployments depending on these APIs. What do you do?",
+      ctx: "Tests your ability to navigate security vs. innovation tension without blowing up the relationship. We want a solution path — not a complaint about the CISO. What's your negotiation strategy?"
+    },
+    {
+      topic: "Budget Catastrophe",
+      diff: "VP-Level · Triage Under Pressure",
+      text: "Your AI budget was just cut 40% mid-year. 12 projects in flight, 30 people on payroll, commitments to 6 business units. Rank your decisions and defend them to me right now.",
+      ctx: "Financial triage under pressure. We want a prioritization logic, stakeholder communication plan, headcount decision framework, and how you protect long-term platform value. Speed matters — a slow answer is a wrong answer."
+    },
+    {
+      topic: "Shadow IT War",
+      diff: "Director-Level · Governance Enforcement",
+      text: "Six months into your role, you discover three business units have been building ChatGPT-based tools outside your CoE — no governance, no security review, two handle customer PII. What do you do?",
+      ctx: "Shadow IT is the governance stress test. We want: discovery and risk assessment, negotiation vs. enforcement decision-making, and how you convert rogue actors into CoE allies without triggering a war."
+    },
+    {
+      topic: "CEO Simplification Push",
+      diff: "VP-Level · Executive Education",
+      text: "The CEO pulls you aside and says: 'I've been reading about AI agents — can we just have one agent that runs everything? Why do we need hundreds of bots?' You have 3 minutes. Respond.",
+      ctx: "Tests executive education ability without condescension. You need to honor the intent (simplification) while protecting your governance architecture. How do you say 'it's more complex than that' without saying it?"
+    },
+    {
+      topic: "Vendor EOL Shock",
+      diff: "Director-Level · Platform Continuity",
+      text: "Your primary RPA platform vendor just announced EOL in 18 months. You have 200+ bots in production on this platform. Walk me through your migration strategy — what do you do first?",
+      ctx: "Tests platform continuity thinking and migration sequencing. We want: bot inventory and complexity scoring, phased migration logic, stakeholder communication, and how you maintain business continuity during transition."
+    },
+    {
+      topic: "Adoption Collapse",
+      diff: "Director-Level · Adoption Failure",
+      text: "You deployed a major AI tool across 3,000 employees. Six months later, adoption is 8%. Leadership is questioning the investment. What diagnosis do you run, and what do you do?",
+      ctx: "Adoption failure is usually a change management failure, not a technology failure. We want: your diagnostic framework, the root causes you'd investigate first, and a concrete rescue plan with timeline."
+    },
+  ],
+
+  strategic: [
+    {
+      topic: "Build vs. Buy",
+      diff: "VP-Level · CFO-Ready Economics",
+      text: "Walk me through your build vs. buy vs. orchestrate decision framework for AI. Give me a real example from your career where you chose 'orchestrate' and one where you chose 'build' — and defend both.",
+      ctx: "This is a CFO-level question. We want: TCO logic, time-to-value tradeoffs, vendor dependency risk, and ability to defend the decision against 'why didn't you just use what we already have?'"
+    },
+    {
+      topic: "Build vs. Buy",
+      diff: "Director-Level · Make vs. Integrate",
+      text: "Wond-E combined MoveWorks, Claude APIs, OpenAI, ServiceNow, SharePoint, and UKG. At what point does 'orchestrate' become 'technical debt'? How do you know when you've integrated too many vendors?",
+      ctx: "Tests architectural discipline. We want: complexity threshold thinking, integration overhead modeling, and your honest assessment of where Wond-E was on the complexity/value tradeoff curve."
+    },
+    {
+      topic: "EBITDA Defense",
+      diff: "VP-Level · Value Realization Under Scrutiny",
+      text: "You claim ~$4M in annual value from the CoE. I'm the CFO and I'm pushing back: 'I don't see that in our P&L. Where exactly did the money go?' Walk me through your defense.",
+      ctx: "Value realization credibility under maximum scrutiny. We want: measurement methodology, hard savings vs. cost avoidance distinction, how you handle 'the hours saved didn't translate to headcount reduction,' and what you do if the CFO still isn't satisfied."
+    },
+    {
+      topic: "EBITDA Defense",
+      diff: "Director-Level · ROI Methodology",
+      text: "How did you calculate and validate the 325,000 hours recaptured figure? Who audited it, and what was the confidence interval on that number?",
+      ctx: "Tests measurement rigor. We want: the specific calculation methodology, validation process (business owner sign-off? finance reconciliation?), and honest acknowledgment of where the number is soft."
+    },
+    {
+      topic: "30-60-90 Day Plan",
+      diff: "Director-Level · Strategic Restraint",
+      text: "You're hired as Director of AI & Innovation at a financial services company. Day 1. Walk me through your first 30 days — and be as specific about what you DON'T do as what you do.",
+      ctx: "Tests executive self-awareness and strategic restraint. Director-level candidates know that listening before doing is itself a strategy. We want specific outputs from each 30-day phase, not a generic 'meet with stakeholders' plan."
+    },
+    {
+      topic: "30-60-90 Day Plan",
+      diff: "VP-Level · Wingspire-Specific",
+      text: "Wingspire Equipment Finance has two entities: Wingspire (asset-based lending) and Corporate Finance. You're Director of AI & Innovation. What's your 90-day plan — and how does it differ between the two business lines?",
+      ctx: "This is the Wingspire-specific version. We want: differentiated approach for ABL vs. CF, specific use case hypotheses for each, and a governance model that serves both without creating two competing programs."
+    },
+    {
+      topic: "FinTech Governance",
+      diff: "VP-Level · Regulatory Awareness",
+      text: "Financial services AI has unique requirements: model risk management (SR 11-7), fair lending compliance, and explainability for credit decisions. How does your governance framework transfer — and where are your genuine gaps?",
+      ctx: "This tests honest self-assessment in a new domain. We want genuine transferability of your CoE framework plus acknowledged gaps plus a credible learning plan. 'I'll figure it out' is not acceptable. Neither is pretending you already know."
+    },
+    {
+      topic: "FinTech Governance",
+      diff: "Director-Level · Credit AI Risk",
+      text: "An AI model you deployed is recommending credit limit adjustments. Your compliance team flags it as a potential fair lending risk. Walk me through how you respond — technically and organizationally.",
+      ctx: "Tests regulatory reflexes in financial services context. We want: immediate containment, model risk review process, compliance escalation, and how you've built explainability into the architecture."
+    },
+    {
+      topic: "Platform vs. Deployer",
+      diff: "VP-Level · Strategic Positioning",
+      text: "How do you articulate the difference between an AI platform governor and an AI deployer to a CEO in 90 seconds — and why does that distinction justify Director-level investment in your role?",
+      ctx: "This is your core positioning question. We want a crisp, non-jargony answer that a business leader can act on and repeat to their board. If you need more than 90 seconds, you haven't mastered it yet."
+    },
+    {
+      topic: "Responsible AI ROI",
+      diff: "Director-Level · Governance as Value",
+      text: "Most companies treat AI governance as a cost center. You've positioned it as a value creator. Make the specific business case for why governance investment pays back — with numbers from your own experience.",
+      ctx: "Tests your ability to monetize governance — not just describe it. We want: cost of ungoverned AI (rework, incidents, trust collapse), governance ROI model, and a specific example where governance prevented a costly failure."
+    },
+  ]
+};
+
+const TOPICS = {
+  behavioral: ["CoE Founding","Stakeholder Influence","Failure & Recovery","Change Management","Team Building","Strategic Prioritization"],
+  technical:  ["LLM Architecture","RAG Design","RPA Governance","Platform Selection","Data Security","Scoring Frameworks"],
+  curveball:  ["Bot Failure Crisis","CISO Conflict","Budget Catastrophe","Shadow IT War","CEO Simplification Push","Vendor EOL Shock","Adoption Collapse"],
+  strategic:  ["Build vs. Buy","EBITDA Defense","30-60-90 Day Plan","FinTech Governance","Platform vs. Deployer","Responsible AI ROI"],
+};
+
+const HINTS = {
+  behavioral: ["Lead with the outcome", "Name the exact number", "Use 'I built' not 'we deployed'", "STAR+L: don't skip L", "Mention the governance impact"],
+  technical:  ["Name the specific tool/model", "State the tradeoff you made", "Acknowledge what failed", "Include the security layer", "Quantify performance"],
+  curveball:  ["Lead with containment", "Name who you call first", "State your governance reflex", "Show MECE thinking", "End with what changed"],
+  strategic:  ["EBITDA first, technology second", "Quantify the build/buy delta", "Acknowledge gaps explicitly", "Use TCO not cost-saving", "Close with a decision"],
+};
+
+const FRAMEWORK_HINTS = {
+  behavioral: `STAR+L Structure:\n• S — Situation: The Wonderful Company, [function], [year], [business problem]\n• T — Task: What you personally owned\n• A — Action: "I built / I decided / I established" — not "we"\n• R — Result: Hours/FTEs/EBITDA number, named\n• L — Learning: What the platform or team does differently now`,
+  technical:  `Architecture Answer Structure:\n• Context: What problem required this design\n• Options considered: At least 2 alternatives you evaluated\n• Decision: What you chose and the specific tradeoff\n• Implementation: How you built/governed it\n• Failure mode: Where it fell short and what you changed`,
+  curveball:  `Crisis Response Framework:\n• Containment (first 15 min): Stop the bleeding\n• Communication (first hour): Who gets told what\n• Root cause (24hrs): What went wrong, technically and in governance\n• Recovery: Business continuity steps\n• Prevention: The governance change that prevents recurrence`,
+  strategic:  `Strategic Answer Framework:\n• Orient: What's the actual business problem being solved\n• Options: At least build / buy / orchestrate\n• Economics: TCO over 3 years, not just up-front cost\n• Risk: Vendor lock-in, talent, integration complexity\n• Recommendation: Clear choice with defended logic`,
+};
+
+// ════════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════════
+let mode = 'behavioral';
+let currentQ = null;
+let followUpQ = null;
+let convHistory = [];
+let isLoading = false;
+let scores = { Director: 0, Manager: 0, Poor: 0, total: 0 };
+let sessionHistory = [];
+let qCount = 0;
+
+// ════════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════════
+function init() {
+  renderTopics();
+  renderHints();
+  const ta = document.getElementById('answerInput');
+  ta.addEventListener('input', () => {
+    document.getElementById('submitBtn').disabled = ta.value.trim().length < 15;
+    ta.style.height = 'auto';
+    ta.style.height = Math.min(ta.scrollHeight, 160) + 'px';
+  });
+}
+
+function handleInputChange(el) {
+  document.getElementById('submitBtn').disabled = el.value.trim().length < 15;
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 160) + 'px';
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    if (!document.getElementById('submitBtn').disabled && !isLoading) submitAnswer();
+  }
+}
+
+// ════════════════════════════════════════════════════════
+// MODE / TOPIC
+// ════════════════════════════════════════════════════════
+function setMode(m, btn) {
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTopics();
+  renderHints();
+  // Update badge
+  const badge = document.getElementById('qBadge');
+  badge.className = `q-type-badge ${m}`;
+  badge.textContent = m.toUpperCase();
+}
+
+function renderTopics() {
+  const grid = document.getElementById('topicGrid');
+  grid.innerHTML = '';
+  (TOPICS[mode] || []).forEach(t => {
+    const btn = document.createElement('button');
+    btn.className = 'topic-btn';
+    btn.innerHTML = `<span class="topic-mark"></span>${t}`;
+    btn.onclick = () => newQuestionByTopic(t, btn);
+    grid.appendChild(btn);
+  });
+}
+
+function renderHints() {
+  const row = document.getElementById('hintsRow');
+  row.innerHTML = '';
+  (HINTS[mode] || []).forEach(h => {
+    const pill = document.createElement('span');
+    pill.className = 'hint-pill';
+    pill.textContent = h;
+    pill.onclick = () => {
+      const ta = document.getElementById('answerInput');
+      if (ta.value && !ta.value.endsWith(' ')) ta.value += ' ';
+      ta.focus();
+    };
+    row.appendChild(pill);
+  });
+}
+
+// ════════════════════════════════════════════════════════
+// QUESTIONS
+// ════════════════════════════════════════════════════════
+function newQuestion() {
+  const bank = QB[mode] || [];
+  if (!bank.length) return;
+  const q = bank[Math.floor(Math.random() * bank.length)];
+  loadQuestion(q);
+}
+
+function newQuestionByTopic(topic, btn) {
+  document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+  btn?.classList.add('active');
+  const bank = (QB[mode] || []).filter(q => q.topic === topic);
+  const q = bank.length ? bank[Math.floor(Math.random() * bank.length)] : null;
+  if (q) loadQuestion(q);
+}
+
+function skipQuestion() { newQuestion(); }
+
+function loadQuestion(q) {
+  currentQ = q;
+  followUpQ = null;
+  convHistory = [];
+  qCount++;
+
+  document.getElementById('welcomeScreen')?.remove();
+  document.getElementById('qText').textContent = q.text;
+  document.getElementById('qCtx').textContent = q.ctx;
+  document.getElementById('qDiff').textContent = q.diff;
+  document.getElementById('qNum').textContent = `#${qCount}`;
+
+  const badge = document.getElementById('qBadge');
+  badge.className = `q-type-badge ${mode}`;
+  badge.textContent = mode.toUpperCase();
+
+  document.getElementById('followUpBtn').style.display = 'none';
+
+  const chat = document.getElementById('chatScroll');
+  chat.innerHTML = '';
+
+  appendAssistant(`<strong>Interviewer ready.</strong> Take a moment to compose your answer — then submit. I'm evaluating against Director/VP-level standards. Lead with outcomes, not activities.`);
+
+  clearInput();
+}
+
+function loadFollowUp() {
+  if (!followUpQ) return;
+  document.getElementById('qText').textContent = followUpQ;
+  document.getElementById('qCtx').textContent = 'Partner follow-up based on your previous answer. Apply STAR+L or the relevant framework.';
+  document.getElementById('qDiff').textContent = 'Partner Follow-Up · Elevated Expectations';
+  document.getElementById('followUpBtn').style.display = 'none';
+  currentQ = { ...currentQ, text: followUpQ, ctx: 'Partner follow-up.', diff: 'Partner Follow-Up' };
+  followUpQ = null;
+  convHistory = [];
+  clearInput();
+}
+
+function showFrameworkHint() {
+  const hint = FRAMEWORK_HINTS[mode];
+  if (!hint) return;
+  appendAssistant(`<strong>Framework Hint for ${mode.charAt(0).toUpperCase()+mode.slice(1)} questions:</strong><br><pre style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.6;white-space:pre-wrap;margin-top:6px;color:var(--slate)">${hint}</pre>`);
+}
+
+function clearInput() {
+  const ta = document.getElementById('answerInput');
+  ta.value = '';
+  ta.style.height = 'auto';
+  document.getElementById('submitBtn').disabled = true;
+  ta.focus();
+}
+
+// ════════════════════════════════════════════════════════
+// CHAT RENDERING
+// ════════════════════════════════════════════════════════
+function appendUser(text) {
+  const chat = document.getElementById('chatScroll');
+  const row = document.createElement('div');
+  row.className = 'msg-row user';
+  row.innerHTML = `<div class="msg-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  chat.appendChild(row);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function appendAssistant(html) {
+  const chat = document.getElementById('chatScroll');
+  const row = document.createElement('div');
+  row.className = 'msg-row assistant';
+  row.innerHTML = `<div class="msg-bubble">${html}</div>`;
+  chat.appendChild(row);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function appendTyping() {
+  const chat = document.getElementById('chatScroll');
+  const row = document.createElement('div');
+  row.className = 'typing-row';
+  row.id = 'typingRow';
+  row.innerHTML = `<div class="typing-bubble"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
+  chat.appendChild(row);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function removeTyping() {
+  document.getElementById('typingRow')?.remove();
+}
+
+function appendFeedbackCard(parsed) {
+  const chat = document.getElementById('chatScroll');
+
+  const starFilled = Math.min(5, Math.max(1, parsed.stars || 3));
+  const stars = Array.from({length:5},(_,i)=>`<span class="fc-star ${i<starFilled?'on':'off'}">${i<starFilled?'★':'☆'}</span>`).join('');
+
+  const strengthsHtml = (parsed.strengths||[]).map(s=>`<li>${s}</li>`).join('');
+  const gapsHtml      = (parsed.gaps||[]).map(g=>`<li>${g}</li>`).join('');
+  const level         = parsed.level || 'Manager';
+  const icon          = level==='Director'?'✅':level==='Manager'?'⚠️':'❌';
+
+  const card = document.createElement('div');
+  card.className = 'feedback-card';
+  card.innerHTML = `
+    <div class="fc-header ${level}">
+      <div class="fc-header-left">
+        <span class="fc-icon">${icon}</span>
+        <span class="fc-title">Partner Assessment — ${level}-Level Response</span>
+      </div>
+      <span class="fc-level-pill ${level}">${level}</span>
+    </div>
+    <div class="fc-stars">${stars}<span class="fc-star-label">${starFilled}/5</span></div>
+    <div class="fc-body">
+      <div class="fc-so-what">
+        <span class="fc-so-what-label">SO WHAT? VERDICT</span>
+        ${parsed.soWhat || 'No verdict generated.'}
+      </div>
+      ${strengthsHtml ? `<div class="fc-section">
+        <div class="fc-section-label">✓ What Worked</div>
+        <ul>${strengthsHtml}</ul>
+      </div>` : ''}
+      ${gapsHtml ? `<div class="fc-section">
+        <div class="fc-section-label">⚠ Gaps &amp; Misses</div>
+        <ul>${gapsHtml}</ul>
+      </div>` : ''}
+      ${parsed.directorClose ? `<div class="fc-section">
+        <div class="fc-section-label">Director-Level Close</div>
+        <div class="fc-director-close">"${parsed.directorClose}"</div>
+      </div>` : ''}
+      ${parsed.followUp ? `<div class="fc-section">
+        <div class="fc-section-label">Partner Follow-Up →</div>
+        <div class="fc-followup">
+          <span class="fc-followup-label">NEXT QUESTION</span>
+          ${parsed.followUp}
+        </div>
+        <button class="fc-answer-followup" onclick="stageFollowUp(\`${parsed.followUp.replace(/`/g,"'")}\`)">→ Answer this follow-up</button>
+      </div>` : ''}
+    </div>
+  `;
+  chat.appendChild(card);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function stageFollowUp(q) {
+  followUpQ = q;
+  document.getElementById('followUpBtn').style.display = '';
+  document.getElementById('qText').textContent = q;
+  document.getElementById('qCtx').textContent = 'Partner follow-up — answer with the same rigour. STAR+L or framework applies.';
+  document.getElementById('qDiff').textContent = 'Partner Follow-Up · Elevated';
+  currentQ = { ...currentQ, text: q };
+  convHistory = [];
+  clearInput();
+}
+
+// ════════════════════════════════════════════════════════
+// SUBMIT & API CALL
+// ════════════════════════════════════════════════════════
+async function submitAnswer() {
+  const ta = document.getElementById('answerInput');
+  const answer = ta.value.trim();
+  if (!answer || !currentQ || isLoading) return;
+  if (!getApiKey()) return; // shows modal if no key
+
+  isLoading = true;
+  document.getElementById('submitBtn').disabled = true;
+
+  appendUser(answer);
+  convHistory.push({ role: 'user', content: answer });
+  clearInput();
+  appendTyping();
+
+  try {
+    const apiResp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': getApiKey(),
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: buildSystem(),
+        messages: convHistory,
+      })
+    });
+
+    if (!apiResp.ok) {
+      const errJson = await apiResp.json().catch(() => ({}));
+      throw new Error('API ' + apiResp.status + ': ' + (errJson?.error?.message || apiResp.statusText));
+    }
+
+    const data = await apiResp.json();
+    const raw = (data.content || []).map(b => b.text || '').join('');
+    removeTyping();
+    convHistory.push({ role: 'assistant', content: raw });
+
+    let parsed = null;
+    try {
+      const m = raw.match(/\{[\s\S]*\}/);
+      if (m) parsed = JSON.parse(m[0]);
+    } catch(e) {}
+
+    if (parsed) {
+      // Update scores
+      const lv = parsed.level || 'Manager';
+      scores[lv] = (scores[lv] || 0) + 1;
+      scores.total++;
+      updateScores();
+
+      // Add to session history
+      sessionHistory.unshift({ q: currentQ.text, level: lv, mode, ts: new Date() });
+      renderHistory();
+
+      appendFeedbackCard(parsed);
+    } else {
+      appendAssistant(raw.replace(/\n/g,'<br>'));
+    }
+  } catch(err) {
+    removeTyping();
+    const msg = err.message || 'Unknown error';
+    appendAssistant(`<em style="color:var(--rose)"><strong>Error:</strong> ${msg}<br><small style="color:var(--mist)">Check browser console for details. If you see a 401, the API key may be missing from your Claude session.</small></em>`);
+    console.error('API error:', err);
+  }
+
+  isLoading = false;
+  document.getElementById('submitBtn').disabled = ta.value.trim().length < 15;
+}
+
+function buildSystem() {
+  return `You are a senior Partner at McKinsey & Company conducting a rigorous interview for a Director/VP of AI & Intelligent Automation role. You bring Big 4 standards: MECE thinking, the "So What?" filter on every answer, and zero tolerance for activity-speak without outcomes.
+
+CANDIDATE: Jeff Czischke
+- Built enterprise AI & automation CoE at The Wonderful Company ($5B+ revenue) from zero to 490+ production deployments
+- 325,000+ hours recaptured annually across 17 business functions (≈156 FTE equivalent)
+- ~$4M+ estimated annual value delivered
+- ~30-person team (engineers, analysts, PMs)
+- Reported to CTO, partnered with BU Presidents (FIJI, Justin Wines, WPA, POM) and CFO
+- Architected Wond-E: enterprise LLM copilot using Claude API + GPT-4o, RAG, ServiceNow/UKG/SharePoint/Teams integration
+- Phase sequence: Foundation → Horizontal Scale → Intelligence Layer → Agentic AI
+- Opportunity scoring: T×F×E÷C (Task × Frequency × Error Rate ÷ Complexity), 1-5 scale
+- Governance: monthly C-suite board, RACI, exception routing, bot lifecycle management
+- Automation Innovator Program: 200+ process improvement managers trained
+- Prior: Director IA CoE at Northern Trust (global team of 20+, Appian BPM, Infosys NIA)
+- Prior: Principal Director at Zinnov Management Consulting (automation-as-a-service)
+- Prior: IT Manager Legal & Compliance at UBS Investment Bank
+- Advisory: Fulcrum Labs (active consulting practice)
+- Acknowledged gap: Azure architecture depth (treats as credibility move)
+- Currently interviewing at Wingspire Equipment Finance (Director AI & Innovation) — CFO round likely next
+- Core positioning: "Platform governor, not just deployer"
+
+CURRENT MODE: ${mode.toUpperCase()}
+CURRENT QUESTION: "${currentQ?.text}"
+
+EVALUATION FRAMEWORK:
+- Director-Level (4-5 stars): Leads with quantified outcome, names the platform/system built, shows governance thinking, demonstrates "so what" clarity, includes learnings that changed the architecture
+- Manager-Level (2-3 stars): Describes activities accurately but lacks outcome quantification, speaks in "we" not "I," skips governance implications, no learning dimension
+- Poor (1 star): Activity-speak only, no metrics, vague success language, no evidence of strategic thinking
+
+RESPOND ONLY IN THIS JSON FORMAT — no preamble, no markdown fences:
+{
+  "level": "Director" | "Manager" | "Poor",
+  "stars": 1-5,
+  "soWhat": "One crisp sentence: the business-impact message this answer conveyed (or failed to convey)",
+  "strengths": ["Specific strength 1", "Specific strength 2"],
+  "gaps": ["Specific gap or missed opportunity 1", "Specific gap 2"],
+  "directorClose": "One sentence showing exactly how a Director/VP would have closed this answer — make it compelling and specific to Jeff's background",
+  "followUp": "The precise curveball follow-up question a Partner would ask next — make it hard"
+}`;
+}
+
+// ════════════════════════════════════════════════════════
+// SCORES & HISTORY
+// ════════════════════════════════════════════════════════
+function updateScores() {
+  const d = scores.Director || 0;
+  const m = scores.Manager  || 0;
+  const p = scores.Poor     || 0;
+  const t = scores.total || 0;
+  const rate = t > 0 ? Math.round((d/t)*100) : 0;
+
+  document.getElementById('scoreD').textContent = d;
+  document.getElementById('scoreM').textContent = m;
+  document.getElementById('scoreP').textContent = p;
+  document.getElementById('scoreRate').textContent = t > 0 ? rate + '%' : '—';
+  document.getElementById('scoreBarFill').style.width = rate + '%';
+
+  // Topbar
+  document.getElementById('tb-d').textContent = `D: ${d}`;
+  document.getElementById('tb-m').textContent = `M: ${m}`;
+  document.getElementById('tb-p').textContent = `P: ${p}`;
+  document.getElementById('tb-session').textContent = `${t} answered · ${rate}% Director`;
+}
+
+function renderHistory() {
+  const list = document.getElementById('historyList');
+  if (!sessionHistory.length) {
+    list.innerHTML = `<div style="font-size:11px;color:rgba(255,255,255,0.25);padding:4px;">No questions answered yet.</div>`;
+    return;
+  }
+  list.innerHTML = sessionHistory.slice(0,8).map(h => `
+    <div class="history-item">
+      <div class="history-q">${h.q}</div>
+      <div class="history-meta">
+        <span class="h-badge ${h.level}">${h.level}</span>
+        <span class="h-time">${h.mode} · ${formatTime(h.ts)}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function formatTime(d) {
+  return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+// ════════════════════════════════════════════════════════
+// API KEY MANAGEMENT
+// ════════════════════════════════════════════════════════
+let _apiKey = '';
+
+function submitApiKey() {
+  const val = document.getElementById('apikeyInput').value.trim();
+  if (!val || val.length < 20) return;
+  _apiKey = val;
+  document.getElementById('apikeyOverlay').style.display = 'none';
+}
+
+function toggleKeyVis() {
+  const inp = document.getElementById('apikeyInput');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+function getApiKey() {
+  if (!_apiKey) {
+    document.getElementById('apikeyOverlay').style.display = 'flex';
+    return null;
+  }
+  return _apiKey;
+}
+
+// ════════════════════════════════════════════════════════
+// BOOT
+// ════════════════════════════════════════════════════════
+init();
+</script>
+</body>
+</html>
